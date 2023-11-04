@@ -1,0 +1,17 @@
+---
+- name: check for execute permission and modify the permissions
+  hosts: all
+  tasks:
+    - name: check for detailed info about f1
+      stat:
+        path: /home/ubuntu/f1
+      register: result
+    - name: Display output for above module
+      debug:
+        var: result
+    - name: check for excute permissions and change it
+      file:
+        name: /home/ubuntu/f1
+        mode: 770
+      when: result.stat.excutable == false
+...

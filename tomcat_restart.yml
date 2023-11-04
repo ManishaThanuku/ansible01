@@ -1,0 +1,6 @@
+---
+- name: Restart the service 
+  service:
+    name: "{{a}}"
+    state: "{{k}}"
+...

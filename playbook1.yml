@@ -1,0 +1,16 @@
+---
+- name: create a user on all servers
+  hosts: all
+  serial:
+     - 1:
+     - 2:
+  tasks: 
+    - name: user creation
+      user:
+        name: Ramu
+        password: password
+        uid: 3456
+        home: /home/ubuntu/Ramu
+        shell: /bin/bash
+        comment: "a normal user"
+...

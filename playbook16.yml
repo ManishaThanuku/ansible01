@@ -1,0 +1,22 @@
+---
+- name: Tagging in asible
+  hosts: all
+  tasks:
+    - name: install tree
+      apt:
+        name: tree
+        state: present
+        update_cache: no
+      tags: tree_installation    
+    - name: create a user
+      user:
+        name: baby
+        password: code
+        comment: welcome
+      tags: create_user    
+    - name: copy /etc/passwd file
+      copy:
+        src: /etc/passwd
+        dest: /tmp
+...
+

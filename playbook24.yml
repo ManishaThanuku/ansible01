@@ -1,0 +1,17 @@
+---
+- name: check if follder called f2 is present if not create a file called f2 
+  hosts: all
+  tasks:
+    - name: check for f2 directory
+      stat:
+        path: /home/ubuntu/f2
+      register: result
+    - name: display output of a above module
+      debug:
+        var: result
+    - name: create a file f2 if directory is not present 
+      file:
+        name: /home/ubuntu/f2
+        state: touch
+      when: result.stat.exists == false    
+...       

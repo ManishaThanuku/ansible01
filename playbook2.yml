@@ -1,0 +1,12 @@
+---
+- name: create a file on all severs
+  hosts: all
+  tasks: 
+     - name: create a file
+       file:
+         name: /tmp/file1005
+         state: touch
+         owner: sai
+         group: sai
+         mode: 770
+...

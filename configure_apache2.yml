@@ -1,0 +1,13 @@
+---
+- name: Configure apache using child playbooks
+  hosts: all
+  tasks:
+    - name: call playbook for install
+      include_tasks: "{{item}}"
+      with_items:
+        - install.yml
+        - edit_index.yml
+        - restart.yml
+        - check_url_response.yml
+...
+

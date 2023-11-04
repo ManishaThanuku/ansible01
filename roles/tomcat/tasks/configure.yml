@@ -1,0 +1,12 @@
+---
+- name: Configure tomcat-users.xml
+  copy:
+    src: "{{file}}"
+    dest: "{{dest1}}"
+- name: Change port number
+  replace:
+    regexp: "{{port1}}"
+    replace: "{{port2}}"
+    path: "{{path1}}"
+  notify: Check on url 
+...

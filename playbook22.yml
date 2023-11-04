@@ -1,0 +1,13 @@
+---
+- name: when Conditions
+  hosts: all
+  vars:
+    - a: 20
+  tasks:
+    - name: copy /etc/passwd
+      copy:
+        src: /etc/passwd
+        dest: /tmp
+      when: a == 10
+
+...    

@@ -1,0 +1,17 @@
+---
+- name: check if f2 as execute permissions then delete the file f2
+  hosts: all
+  tasks:
+    - name: check detailed info of f2
+      stat:
+        path: /home/ubuntu/f2
+      register: a
+    - name: output od above module
+      debug:
+        var: a
+    - name: if f2 as excute permissions the delete the file f2
+      file:
+        name: /home/ubuntu/f2
+        state: absent
+      when: a.stat.executable == true
+...

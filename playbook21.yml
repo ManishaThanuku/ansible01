@@ -1,0 +1,19 @@
+---
+- name: Implementing Handlers
+  hosts: all
+  tasks:
+    - name: Install git
+      apt:
+        name: git 
+        state: present
+        update_cache: yes
+      notify: Restart the git
+  handlers:
+    - name: Restart the git
+      service:
+        name: git
+        state: restarted
+
+
+
+...

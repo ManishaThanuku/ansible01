@@ -1,0 +1,27 @@
+---
+- name: handlers
+  hosts:
+  tasks:
+    - name: install apcahe2
+      apt: 
+        name: apache2
+        state: present
+        update_cache: yes
+      notify: response on url  
+    - name: copy content tp index.html
+      copy:
+        content: "hello world"
+        dest: /var/www/html/index.html
+      notify: Restart apache2
+  handlers:
+    - name: Restart apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: response on url
+      uri:
+        url: "{{item}}"
+        status_code: 200
+         - http://172.31.9.243
+         - http://172.31.3.191
+...

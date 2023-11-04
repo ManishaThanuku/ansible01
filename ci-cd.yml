@@ -1,0 +1,51 @@
+---
+- name: Install requried s/w's on devserver
+  hosts: devserver
+  tasks:
+    - name: Install s/w
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: openjdk-11-jdk,b: present,c: yes}
+        - {a: git,b: present,c: no}
+        - {a: maven,b: present,c: no}
+- name: Install s/w on qa server
+  hosts: qaserver
+  tasks:
+    - name: Install required s/w
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: openjdk-11-jdk,b: present,c: yes}
+        - {a: git,b: present,c: no}
+        - {a: tomcat9,b: present,c: no}
+        - {a: tomcat9-admin,b: present,c: no}
+- name: Install s/w on prod server
+  hosts: prodserver
+  tasks:
+    - name: Install required s/w
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat9,b: present,c: no}
+        - {a: tomcat9-admin,b: present,c: no}
+- name: Continuous Download and continuous build
+  hosts: devserver
+  tasks:
+    - name: Download conde form remote repo github
+      git:
+        repo: https://github.com/intelliqittrainings/maven.git
+        dest: dev-git
+    - name: Create artifacts
+      shell: cd dev-git;mvn package
+    - name: fetch the artifact from the dev to the cotroller
+      fetch:
+        src: dev-git/webapp/target/webapp.war
+        dest: /tmp
+  

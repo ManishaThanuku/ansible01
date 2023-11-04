@@ -1,0 +1,43 @@
+---
+- name: Installing tomcat9/tomcat-admin
+  hosts: all
+  tasks:
+    - name: Install tomcat9/tomcat9-admin
+      apt:
+         name: "{{item.a}}"
+         state: "{{item.b}}"
+         update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat9, b: present, c: yes}
+        - {a: tomcat9-admin, b: present, c: no}
+    - name: copy tomcat-users.xml
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat9/
+    - name: change the prot number 8080 to 9090
+      replace:
+        regexp: 8080
+        replace: 9090
+        path: /etc/tomcat9/server.xml
+    - name: check the tomact response on servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.3.191:9090
+        - http://172.31.9.243:9090
+
+
+...    
+
+
+
+   
+
+
+
+
+...  
+
+
+

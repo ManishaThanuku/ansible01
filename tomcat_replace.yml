@@ -1,0 +1,7 @@
+---
+- name: Replace 8080 tp 9090
+  replace:
+    regexp: "{{h}}"
+    replace: "{{i}}"
+    path: "{{j}}"
+...

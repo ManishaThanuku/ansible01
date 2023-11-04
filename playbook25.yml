@@ -1,0 +1,32 @@
+---
+- name: using loop concept
+  hosts: all
+  tasks:
+    - name: Install/uninstall s/w 
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat9,b: present,c: yes}
+        - {a: tomcat9-admin,b: present,c: no}    
+    - name: copy tomcat-users.xml
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat9
+    - name: Restart the service
+      service:
+        name: tomcat9
+        state: restarted
+    - name: tomcat response on servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:    
+        - http://172.31.3.191
+        - http://172.31.9.243
+        - http://172.31.21.215
+        - http://172.31.19.64
+...              
+
+

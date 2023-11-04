@@ -1,0 +1,35 @@
+---
+- name: Install/uninstall s/w application
+  hosts: all
+  vars:
+   - a: tomcat9
+   - b: present
+   - c: yes
+   - d: tomcat9-admin
+   - e: present
+   - f: no
+   - g: tomcat-users.xml
+   - h: /etc/tomcat9/
+   - i: tomcat9
+   - j: restarted
+  tasks:
+    - name: Install tomcat9
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+    - name: Install tomcat9-admin
+      apt:
+        name: "{{d}}"
+        state: "{{e}}"
+        update_cache: "{{f}}"
+    - name: copy tomcat-users 
+      copy:
+        src: "{{g}}"
+        dest: "{{h}}"
+    - name: restart the service
+      service:
+        name: "{{i}}"
+        state: "{{j}}"
+...
+   

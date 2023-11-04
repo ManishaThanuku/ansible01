@@ -1,0 +1,16 @@
+---
+- name: Install/uninstall s/w application
+  hosts: all
+  tasks:
+    - name: Install multiple s/w applications
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: no
+      with_items:
+        - tree
+        - git
+        - maven
+...
+
+

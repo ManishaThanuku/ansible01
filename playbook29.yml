@@ -1,0 +1,23 @@
+---
+- name: Install s/w application
+  hosts: all
+  tasks:
+    - name: Install apache2
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+    - name: change the content in index.html
+      copy:
+        content: "{{d}}"
+        dest: "{{e}}"
+    - name: Restart the apache2
+      service:
+        name: "{{f}}"
+        state: "{{g}}"
+    - name: check response on the url
+      uri:
+        url: "{{h}}"
+        status_code: "{{i}}"
+...
+

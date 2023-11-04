@@ -1,0 +1,11 @@
+---
+- name: apache2 Installation
+  hosts: all
+  tasks:
+    - name: Call child playbooks
+      include_tasks: "{{item}}"
+      with_items:
+        - apache_install.yml
+        - apache_edit.yml
+        - apache_service.yml
+...

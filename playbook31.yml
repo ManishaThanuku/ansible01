@@ -1,0 +1,34 @@
+---
+- name: Install apache2
+  hosts: all
+  vars:
+   - a: apache2
+   - b: present
+   - c: yes
+   - d: pyou are the best
+   - e: /var/www/html/index.html
+   - f: apache2
+   - g: restarted
+  tasks:
+    - name: Install apache2
+      apt:
+        name: "{{a}}"
+        state: "{{b}}"
+        update_cache: "{{c}}"
+    - name: change the content
+      copy:
+        content: "{{d}}"
+        dest: "{{e}}"
+      notify: Restart the apache2
+  handlers:
+    - name: Restart the apache2
+      service:
+        name: "{{f}}"
+        state: "{{g}}"
+...
+
+
+
+
+
+

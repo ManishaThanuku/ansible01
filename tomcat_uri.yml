@@ -1,0 +1,9 @@
+---
+- name: Response on uri
+  uri:
+    url: "{{item.a}}"
+    status_code: "{{iteam.b}}"
+  with_items:
+    - {a: "{{l}}",b: "{{m}}"}
+    - {a: "{{n}}",b: "{{m}}"}
+...

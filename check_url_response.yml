@@ -1,0 +1,11 @@
+---
+- name: check url response
+  uri:
+    url: "{{item}}"
+    status_code: 200
+  with_items:
+    - http://54.153.26.92:80
+    - http://172.31.9.243
+    - http://172.31.21.215
+    - http://172.31.19.64
+... 
